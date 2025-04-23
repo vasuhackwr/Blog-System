@@ -1,0 +1,31 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  .container
+    a.navbar-brand(href="/") Blog System
+    button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse#navbarNav
+      ul.navbar-nav.me-auto
+        li.nav-item
+          a.nav-link(href="/posts") All Posts
+        if user
+          li.nav-item
+            a.nav-link(href="/posts/create") Create Post
+          if user.isAdmin
+            li.nav-item.dropdown
+              a.nav-link.dropdown-toggle(href="#", role="button", data-bs-toggle="dropdown") Admin
+              ul.dropdown-menu
+                li
+                  a.dropdown-item(href="/admin/users") Users
+                li
+                  a.dropdown-item(href="/admin/posts") All Posts
+      ul.navbar-nav
+        if user
+          li.nav-item
+            span.nav-link.text-light Hello, #{user.username}!
+          li.nav-item
+            a.nav-link(href="/auth/logout") Logout
+        else
+          li.nav-item
+            a.nav-link(href="/auth/login") Login
+          li.nav-item
+            a.nav-link(href="/auth/register") Register

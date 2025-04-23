@@ -1,0 +1,20 @@
+extends ../layouts/main
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header
+          h4 Create New Post
+        .card-body
+          form(method="POST", action="/posts/create")
+            .mb-3
+              label.form-label(for="title") Title
+              input.form-control#title(type="text", name="title", required)
+            .mb-3
+              label.form-label(for="content") Content
+              textarea.form-control#content(name="content", rows="5", required)
+            .mb-3
+              label.form-label(for="tags") Tags (comma separated)
+              input.form-control#tags(type="text", name="tags", placeholder="e.g. nodejs, express, mongodb")
+            button.btn.btn-primary(type="submit") Create Post

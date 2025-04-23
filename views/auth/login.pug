@@ -1,0 +1,31 @@
+extends ../layouts/main
+
+block content
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header
+          h4 Login
+        .card-body
+          form(method="POST", action="/auth/login")
+            input(type="hidden", name="_csrf", value=csrfToken)
+            .mb-3
+              label.form-label(for="username") Username
+              input.form-control#username(
+                type="text", 
+                name="username", 
+                required,
+                autocomplete="username"
+              )
+            .mb-3
+              label.form-label(for="password") Password
+              input.form-control#password(
+                type="password", 
+                name="password", 
+                required,
+                autocomplete="current-password"
+              )
+            button.btn.btn-primary(type="submit") Login
+          p.mt-3
+            | Don't have an account? 
+            a(href="/auth/register") Register here

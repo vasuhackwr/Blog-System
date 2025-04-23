@@ -1,0 +1,18 @@
+extends ../layouts/main
+
+block content
+  .card.mb-4
+    .card-body
+      h1.card-title= post.title
+      .mb-3
+        each tag in post.tags
+          span.badge.bg-secondary.me-1= tag
+      p.card-text= post.content
+      p.card-text
+        small.text-muted Posted by #{post.createdBy.username} on #{post.createdAt.toLocaleDateString()}
+    .card-footer.bg-transparent
+      a.btn.btn-primary(href="/posts") Back to Posts
+      if user && user._id.equals(post.createdBy._id)
+        a.btn.btn-warning.ms-2(href=`/posts/${post._id}/edit`) Edit
+        form.d-inline.ms-2(method="POST", action=`/posts/${post._id}?_method=DELETE`)
+          button.btn.btn-danger(type="submit") Delete

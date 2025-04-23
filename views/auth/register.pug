@@ -1,0 +1,20 @@
+extends ../layouts/main
+
+block content
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header
+          h4 Register
+        .card-body
+          form(method="POST", action="/auth/register")
+            .mb-3
+              label.form-label(for="username") Username
+              input.form-control#username(type="text", name="username", required)
+            .mb-3
+              label.form-label(for="password") Password
+              input.form-control#password(type="password", name="password", required)
+            button.btn.btn-primary(type="submit") Register
+          p.mt-3
+            | Already have an account? 
+            a(href="/auth/login") Login here
