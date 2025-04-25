@@ -1,9 +1,9 @@
-if messages.error
+if messages && messages.error && messages.error.length
   .alert.alert-danger.alert-dismissible.fade.show
     each msg in messages.error
       | #{msg}
     button.btn-close(type="button", data-bs-dismiss="alert")
-if messages.success
+if messages && messages.success && messages.success.length
   .alert.alert-success.alert-dismissible.fade.show
     each msg in messages.success
       | #{msg}

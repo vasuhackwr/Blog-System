@@ -24,32 +24,18 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // Session configuration
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || 'fallback_secret_key',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { 
-      maxAge: 3600000,
-      secure: false,
-      httpOnly: true
-    }
-  })
-);
-
-// Middleware setup
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser()); // Required for csrf
-app.use(flash());
-
-// CSRF Protection setup
-const csrfProtection = csrf({ cookie: true });
-app.use(csrfProtection);
-
-
+app.use(express.urlencoded({ extended: true }));  // Body parser for form data
+app.use(express.json());  // Body parser for JSON data
+app.use(cookieParser()); // Optional, not strictly required for CSRF without cookies
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'fallback_secret_key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 3600000, secure: false, httpOnly: true }
+}));
+app.use(flash());  // Flash must be after session middleware
 
 // Passport initialization
 require('./config/passport')(passport);
@@ -64,7 +50,11 @@ app.set('view engine', 'pug');
 app.use((req, res, next) => {
   res.locals.user = req.user;
   res.locals.messages = req.flash();
-  res.locals.csrfToken = req.csrfToken(); // Make CSRF token available to all views
+  try {
+    res.locals.csrfToken = req.csrfToken(); // Try to set csrfToken
+  } catch (err) {
+    res.locals.csrfToken = null; // If error (like CSRF failure), set to null
+  }
   next();
 });
 

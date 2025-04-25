@@ -1,9 +1,14 @@
 const User = require('../models/User');
+const passport = require('passport');
+
 const { registerValidation, loginValidation } = require('../utils/validators');
 
 // Render login page
 exports.getLogin = (req, res) => {
-  res.render('auth/login', { title: 'Login' });
+  res.render('auth/login', 
+    { 
+      title: 'Login'
+    });
 };
 
 // Handle login
