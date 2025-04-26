@@ -10,10 +10,19 @@ module.exports = function() {
         console.log('Login attempt:', username); // Debug log
         const user = await User.findOne({ username });
         if (!user) {
-          console.log('User not found'); // Debug log
+          alert('User not found');
           return done(null, false, { message: 'Incorrect username.' });
         }
-        // ... rest of your strategy code
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+          alert('Incorrect password');
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+
+        console.log('Login successful'); // Debug log
+        return done(null, user);
+
       } catch (err) {
         console.error('Auth error:', err); // Debug log
         return done(err);
