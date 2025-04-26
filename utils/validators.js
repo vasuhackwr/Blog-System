@@ -22,7 +22,7 @@ const postValidation = data => {
   const schema = Joi.object({
     title: Joi.string().min(3).max(100).required(),
     content: Joi.string().min(10).required(),
-    tags: Joi.array().items(Joi.string().min(2).max(20))
+    tags: Joi.string().optional()
   });
   return schema.validate(data);
 };
