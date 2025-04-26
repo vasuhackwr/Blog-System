@@ -10,12 +10,13 @@ router.use(methodOverride('_method'));
 // Get all posts
 router.get('/', postController.getAllPosts);
 
-// Get single post
-router.get('/:id', postController.getPost);
-
 // Create post routes
 router.get('/create', isAuthenticated, postController.getCreatePost);
 router.post('/create', isAuthenticated, postController.postCreatePost);
+
+// Get single post
+router.get('/:id', postController.getPost);
+
 
 // Edit post routes
 router.get('/:id/edit', isAuthenticated, isAuthor, postController.getEditPost);

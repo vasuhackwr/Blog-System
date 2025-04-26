@@ -67,7 +67,7 @@ exports.postCreatePost = async (req, res) => {
     const newPost = new Post({
       title,
       content,
-      tags: tagsArray,
+      tags: [...tagsArray],
       createdBy: req.user._id
     });
     

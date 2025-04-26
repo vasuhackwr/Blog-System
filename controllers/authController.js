@@ -63,7 +63,11 @@ exports.postRegister = async (req, res) => {
 
 // Handle logout
 exports.logout = (req, res) => {
-  req.logout();
-  req.flash('success', 'You have been logged out');
-  res.redirect('/auth/login');
+  req.logout((err) => {
+    if(err) {
+      console.error('Logout error:', err);
+    }
+    req.flash('success', 'You have been logged out');
+    res.redirect('/auth/login');
+  });
 };
