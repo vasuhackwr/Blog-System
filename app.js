@@ -28,6 +28,10 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));  // Body parser for form data
 app.use(express.json());  // Body parser for JSON data
+
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 app.use(cookieParser()); // Optional, not strictly required for CSRF without cookies
 app.use(session({
   secret: process.env.SESSION_SECRET || 'fallback_secret_key',
